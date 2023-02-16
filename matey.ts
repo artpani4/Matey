@@ -133,5 +133,5 @@ const sleepAndEcho = {
     console.log(message);
   },
 };
-// OLOLO 2
+// OLOLO 3
 // deno run --allow-all matey.ts slEcho 2 'Hello, world!'
