@@ -134,8 +134,4 @@ const sleepAndEcho = {
   },
 };
 
-cli.addCommand(sleepAndEcho);
-
-cli.parse(Deno.args);
-
 // deno run --allow-all matey.ts slEcho 2 'Hello, world!'
