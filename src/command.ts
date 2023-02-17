@@ -1,3 +1,4 @@
+export type handlerArgs = Record<string, string>;
 export interface CommandArgument {
   name: string;
   description: string;
@@ -9,7 +10,7 @@ export interface CLICommand {
   description: string;
   arguments: CommandArgument[];
   subcommands: CLICommand[];
-  handler: (args: Record<string, unknown>) => void;
+  handler: (args: handlerArgs) => void;
 }
 
 export class CLICommandBuilder {
@@ -17,7 +18,7 @@ export class CLICommandBuilder {
   private description: string = '';
   private arguments: CommandArgument[] = [];
   private subcommands: CLICommand[] = [];
-  private handler?: (args: Record<string, unknown>) => void;
+  private handler?: (args: handlerArgs) => void;
 
   setName(name: string): CLICommandBuilder {
     this.name = name;
@@ -40,7 +41,7 @@ export class CLICommandBuilder {
   }
 
   setHandler(
-    handler: (args: Record<string, unknown>) => void,
+    handler: (args: handlerArgs) => void,
   ): CLICommandBuilder {
     this.handler = handler;
     return this;
