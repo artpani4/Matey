@@ -15,7 +15,7 @@ export class CLI {
     this.commands.push(command);
   }
 
-  public parse(args: string[]) {
+  public parse(args: string[]): any {
     const [commandName, ...commandArgs] = args;
 
     const command = this.commands.find((cmd) =>
@@ -26,6 +26,23 @@ export class CLI {
       console.error(`Command "${commandName}" not found.`);
       this.printHelp();
       Deno.exit(1);
+    }
+
+    if (command.subcommands.length > 0) {
+      const [subcommandName, ...subcommandArgs] = commandArgs;
+
+      const subcommand = command.subcommands.find((cmd) =>
+        cmd.name === subcommandName
+      );
+
+      if (!subcommand) {
+        console.error(
+          `Subcommand "${subcommandName}" not found for command "${commandName}".`,
+        );
+        this.printHelp(command);
+        Deno.exit(1);
+      }
+      return this.parse(commandArgs);
     }
 
     const parsedArgs = this.parseArgs(commandArgs, command);

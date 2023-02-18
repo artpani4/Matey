@@ -49,11 +49,6 @@ const addSuffix = new CLICommandBuilder()
     description: 'Name of suffix to append',
     required: true,
   })
-  .addArgument({
-    name: 'main',
-    description: 'Main message to append to',
-    required: true,
-  })
   .setHandler((args: handlerArgs) => {
     const { suffixName, main } = args;
     console.log(`${main} ${suffixName}`);
@@ -108,9 +103,12 @@ const writeWithSubcommand = new CLICommandBuilder()
 
 const cli = new CLI();
 cli.addCommand(echoWithSubcommand);
-cli.addCommand(writeWithSubcommand);
+cli.addCommand(writeToFile);
+// deno run --allow-all examples/cliEcho.ts write ./ololo.txt hahaha
+cli.addCommand(addSuffix);
 
 const args = Deno.args;
+// const args = ['echo', 'suffix', 'world'];
 if (args.length === 0) {
   console.log('Ты че пидор?');
 } else {
